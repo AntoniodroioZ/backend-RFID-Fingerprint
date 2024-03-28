@@ -6,12 +6,19 @@ services:
       - "3000:3000"
     depends_on:
       - db
+    env_file:
+      - .env
+    networks:
+      - project-network
   db:
-    image: mysql:latest
+    image: mysql:5.7
     ports:
       - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: example
-      MYSQL_DATABASE: mydatabase
-      MYSQL_USER: myuser
-      MYSQL_PASSWORD: mypassword
+    env_file:
+      - .env
+    networks:
+      - project-network
+
+networks:
+  project-network:
+    driver: bridge
